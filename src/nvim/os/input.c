@@ -32,7 +32,7 @@
 #include "nvim/state.h"
 #include "nvim/state_defs.h"
 
-#define READ_BUFFER_SIZE 0xfff
+#define READ_BUFFER_SIZE 0xfff  // 4095
 #define INPUT_BUFFER_SIZE (READ_BUFFER_SIZE * 4)
 
 typedef enum {
@@ -41,6 +41,7 @@ typedef enum {
   kInputEof,
 } InbufPollResult;
 
+// What does it mean by "before UI starts?"
 static Stream read_stream = { .closed = true };  // Input before UI starts.
 static RBuffer *input_buffer = NULL;
 static bool input_eof = false;

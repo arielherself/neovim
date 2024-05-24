@@ -42,6 +42,7 @@ int stream_set_blocking(int fd, bool blocking)
   return retval;
 }
 
+/// Initialize a `Stream` object with an existing uv stream IO.
 void stream_init(Loop *loop, Stream *stream, int fd, uv_stream_t *uvstream)
   FUNC_ATTR_NONNULL_ARG(2)
 {
@@ -81,6 +82,8 @@ void stream_init(Loop *loop, Stream *stream, int fd, uv_stream_t *uvstream)
   }
 
   if (stream->uvstream) {
+    // Store some custom data in `uv_stream_t::data` enables callback functions to quickly locate
+    // required content.
     stream->uvstream->data = stream;
   }
 

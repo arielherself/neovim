@@ -4,6 +4,7 @@
 
 #include "nvim/func_attr.h"
 
+/// Read buffer type.
 typedef struct rbuffer RBuffer;
 /// Type of function invoked during certain events:
 ///   - When the RBuffer switches to the full state
@@ -11,6 +12,7 @@ typedef struct rbuffer RBuffer;
 typedef void (*rbuffer_callback)(RBuffer *buf, void *data);
 
 struct rbuffer {
+  // callback functions
   rbuffer_callback full_cb, nonfull_cb;
   void *data;
   size_t size;

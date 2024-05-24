@@ -19,6 +19,7 @@
 # include "event/rstream.c.generated.h"
 #endif
 
+/// Initialize a read stream with a file descriptor.
 void rstream_init_fd(Loop *loop, Stream *stream, int fd, size_t bufsize)
   FUNC_ATTR_NONNULL_ARG(1, 2)
 {
@@ -26,6 +27,7 @@ void rstream_init_fd(Loop *loop, Stream *stream, int fd, size_t bufsize)
   rstream_init(stream, bufsize);
 }
 
+/// Initialize a read stream without a file descriptor.
 void rstream_init_stream(Stream *stream, uv_stream_t *uvstream, size_t bufsize)
   FUNC_ATTR_NONNULL_ARG(1, 2)
 {
@@ -33,6 +35,7 @@ void rstream_init_stream(Stream *stream, uv_stream_t *uvstream, size_t bufsize)
   rstream_init(stream, bufsize);
 }
 
+/// Initialize the buffer inside a read stream. Used in other initialization process.
 void rstream_init(Stream *stream, size_t bufsize)
   FUNC_ATTR_NONNULL_ARG(1)
 {
@@ -70,13 +73,16 @@ void rstream_stop(Stream *stream)
   }
 }
 
+/// Stop reading from the stream when the buffer is full.
 static void on_rbuffer_full(RBuffer *buf, void *data)
 {
   rstream_stop(data);
 }
 
+/// Change to receiving state once the buffer is not full.
 static void on_rbuffer_nonfull(RBuffer *buf, void *data)
 {
+  // Get the current stream
   Stream *stream = data;
   assert(stream->read_cb);
   rstream_start(stream, stream->read_cb, stream->cb_data);

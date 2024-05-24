@@ -54,6 +54,7 @@ struct wbuffer {
   wbuffer_data_finalizer cb;
 };
 
+/// Wrapper of a uv stream.
 typedef struct stream Stream;
 /// Type of function called when the Stream buffer is filled with data
 ///

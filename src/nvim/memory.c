@@ -144,11 +144,13 @@ void xfree(void *ptr)
   free(ptr);
 }
 
-/// calloc() wrapper
+/// calloc() wrapper (alloc + clear)
+/// 
+/// Exit the program when memory is insufficient.
 ///
 /// @see {xmalloc}
-/// @param count
-/// @param size
+/// @param count how many items
+/// @param size memory for each item
 /// @return pointer to allocated space. Never NULL
 void *xcalloc(size_t count, size_t size)
   FUNC_ATTR_MALLOC FUNC_ATTR_ALLOC_SIZE_PROD(1, 2) FUNC_ATTR_NONNULL_RET
